@@ -1,0 +1,107 @@
+{% load staticfiles %}
+{% load static i18n %}
+{% load thumbnail %}
+
+<!-- Header -->
+
+<header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="header_content d-flex flex-row align-items-center justify-content-start">
+                        <div class="logo navbar-brand"><a href="#">Camer-Info+</a></div>
+                        <nav class="main_nav">
+                            <ul>
+                                <li class="{% if nbar == 'home' %}active{% endif %}"><a href="{% url 'camer-info:home' %}">Home</a></li>
+                                <li class="{% if nbar == 'blog' %}active{% endif %}"><a href="{% url 'camer-info:blog' %}">Blog</a></li>
+                                <li class="{% if nbar == 'about' %}active{% endif %}"><a href="{% url 'camer-info:about' %}">About Us</a></li>
+                                <li class="{% if nbar == 'contact' %}active{% endif %}"><a href="{% url 'camer-info:contact' %}">Contact</a></li>
+                               
+                                
+                                {% if request.user.is_authenticated and request.user.is_superuser %}
+                                <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Blog Setting' %}</a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{% url 'camer-info:posts:create' %}"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; {% trans 'Create Blog' %}</a>                                        
+                                        {% if nbar == 'blog_detail' %}
+                                            <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{% url 'camer-info:posts:update' slug %}"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i>&nbsp; {% trans "Edit" %}</a>
+                                        <a class="dropdown-item" href="{% url 'camer-info:posts:delete' slug %}"><i class="fa fa-trash-o fa-fw" aria-hidden="true"></i>&nbsp; {% trans "Delete" %}</a>
+                                        {% endif %}
+                                    </div>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                        <div class="search_container ml-auto">
+                            <form action="#">
+                                <input type="search" class="header_search_input" required="required" placeholder="Type to Search...">
+                                <img class="header_search_icon" src="{% static 'images/search.png' %}" alt="">
+                            </form>							
+                        </div>
+                        <nav class="main_nav" style="margin-left: 29px;">
+                            <ul>
+
+                                {% if not request.user.is_authenticated %}
+                                <li class="{% if nbar == 'login' %}active{% endif %} menu_mm"><a href="{% url 'account_login' %}">Login</a></li>
+                                <li class="{% if nbar == 'register' %}active{% endif %} menu_mm" ><a href='{% url "account_signup" %}'>Register</a></li>
+                                {% else %}
+                                <!-- <li><a href='{% url "account_logout" %}'>Logout</a></li> -->
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      {% thumbnail request.user.picture "x30" as im %}
+                                        <img src="{{ im.url }}" style="border-radius: 50%;" alt="{% trans 'User Image' %}" class="user-image">
+                                      {% empty %}
+                                        <img src="{% static 'img/user.png' %}" height="30px" alt="{% trans 'No Profile Picture' %}" />
+                                      {% endthumbnail %}
+                                      {{ request.user.username }}
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                      <a class="dropdown-item" href="{% url 'users:detail' request.user.username  %}"><i class="fa fa-cogs fa-fw" aria-hidden="true"></i>&nbsp; {% trans 'Profile Settings' %}</a>
+                                      <div class="dropdown-divider"></div>
+                                      <a class="dropdown-item" href="{% url 'account_logout' %}"><i class="fa fa-sign-out fa-fw" aria-hidden="true"></i>&nbsp; {% trans "Log Out" %}</a>
+                                    </div>
+                                  </li>
+                                {% endif %}
+
+                            </ul>
+                        </nav>
+                        <div class="hamburger ml-auto menu_mm">
+                            <i class="fa fa-bars trans_200 menu_mm" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<!-- Menu -->
+
+<div class="menu d-flex flex-column align-items-end justify-content-start text-right menu_mm trans_400">
+    <div class="menu_close_container"><div class="menu_close"><div></div><div></div></div></div>
+    <div class="logo menu_mm"><a href="#">Camer-Info+</a></div>
+    <nav class="menu_nav">
+            <ul class="menu_mm">
+                {% if not request.user.is_authenticated %}
+                <li class="{% if nbar == 'login' %}active{% endif %} menu_mm"><a href="{% url 'account_login' %}">Login</a></li>
+                <li class="{% if nbar == 'register' %}active{% endif %} menu_mm"><a href='{% url "account_signup" %}'>Register</a></li>
+                {% else %}
+                <li class="{% if nbar == 'logout' %}active{% endif %} menu_mm"><a href="{% url 'account_logout' %}">Logout</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    <div class="search">
+        <form action="#">
+            <input type="search" class="header_search_input menu_mm" required="required" placeholder="Type to Search...">
+            <img class="header_search_icon menu_mm" src="{% static 'images/search_2.png' %}" alt="">
+        </form>
+    </div>
+    <nav class="menu_nav">
+        <ul class="menu_mm">
+            <li class="{% if nbar == 'home' %}active{% endif %} menu_mm"><a href="{% url 'camer-info:home' %}">home</a></li>
+            <li class="{% if nbar == 'blog' %}active{% endif %} menu_mm"><a href="{% url 'camer-info:blog' %}">Blog</a></li>
+            <li class="{% if nbar == 'about' %}active{% endif %} menu_mm"><a href="{% url 'camer-info:about' %}">About Us</a></li>
+            <li class="{% if nbar == 'contact' %}active{% endif %} menu_mm"><a href="{% url 'camer-info:contact' %}">Contact</a></li>
+        </ul>
+    </nav>
+</div>

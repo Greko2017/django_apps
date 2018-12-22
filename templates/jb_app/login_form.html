@@ -1,0 +1,31 @@
+{% extends "jb_app/base_1.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+<title>{% block header-stype %}Contact | {{block.super}} {% endblock header-stype %}</title>
+{% block header-style %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/contact.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/contact_responsive.css' %}">
+{% endblock header-style %}
+
+		{% block form_content %}
+		<div class="section_title">{{ title }}</div>
+		<hr/>
+		<form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+			{{ form|crispy }}
+		<input type='submit' class='contact_button' value='{{ title }}' />
+		</form>
+		<!-- Post Comment
+		<div class="post_comment">
+			<div class="contact_form_container">
+				<form action="#">									
+					<input type="text"  class="contact_input contact_input_name" placeholder="Your Name" required="required">
+                    <input type="password"  class="contact_input contact_input_password" placeholder="Your Password" required="required">
+					<button type="submit" class="contact_button">Login</button>
+				</form>
+			</div>
+		</div> -->
+	{% endblock form_content %}
+{% block footer-script %}
+<script src="{% static 'plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static 'js/contact.js' %}"></script>
+{% endblock footer-script %}

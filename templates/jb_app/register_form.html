@@ -1,0 +1,28 @@
+{% extends "jb_app/base_1.html" %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+<title>{% block header-stype %}Register | {{block.super}} {% endblock header-stype %}</title>
+{% block header-style %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'styles/contact.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/contact_responsive.css' %}">
+{% endblock header-style %}
+
+		{% block form_content %}
+		
+		<div class="section_title">{{ title }}</div>
+		<hr>
+		<form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+			{{ form|crispy }}
+		<input type='submit' class='contact_button' value='{{ title }}' />
+		</form>
+		{% endblock form_content %}
+		{% block footer_block %}
+		{{block.super}}
+		{% endblock footer_block %}
+		
+{% block footer-script %}
+<script src="{% static 'plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static 'js/contact.js' %}"></script>lm,ml,ml,ml,ml,ml,
+
+{% endblock footer-script %}

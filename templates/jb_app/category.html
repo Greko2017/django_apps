@@ -1,0 +1,96 @@
+{% extends "jb_app/base.html" %}
+{% load staticfiles %}
+<title>{% block header-stype %}category | {{block.super}} {% endblock header-stype %}</title>
+{% block header-style %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/category.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/category_responsive.css' %}">
+{% endblock header-style %}
+
+	{% block home %}		
+		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="{% static 'images/category.jpg' %}" data-speed="0.8"></div>
+	{% endblock home %}
+	
+						{% block content %}
+						<!-- Category -->
+
+						<div class="category">
+							<div class="section_panel d-flex flex-row align-items-center justify-content-start">
+								<div class="section_title">Latest Articles</div>
+								<div class="section_tags ml-auto">
+									<ul>
+										<li class="active"><a href="category">all</a></li>
+										<li><a href="category">style hunter</a></li>
+										<li><a href="category">vogue</a></li>
+										<li><a href="category">health & fitness</a></li>
+										<li><a href="category">travel</a></li>
+									</ul>
+								</div>
+								<div class="section_panel_more">
+									<ul>
+										<li>more
+											<ul>
+												<li><a href="category">new look 2018</a></li>
+												<li><a href="category">street fashion</a></li>
+												<li><a href="category">business</a></li>
+												<li><a href="category">recipes</a></li>
+												<li><a href="category">sport</a></li>
+												<li><a href="category">celebrities</a></li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="section_content">
+								<div class="grid clearfix">
+							{% for obj in object_list  %}
+							
+								{% if obj.image %}
+								<!-- Small Card With Image -->
+								<div class="card card_small_with_image grid-item">
+									<img class="card-img-top" src="{{ obj.image.url }}" alt="">
+									<div class="card-body">
+										<div class="card-title card-title-small"><a href="{{ obj.get_absolute_url_jb_app }}">{{ obj.get_markdown|truncatechars_html:120 }}</a></div>
+										<small class="post_meta"><a href="#">{% if obj.user.get_full_name %}<p>Author: {{ obj.user.get_full_name }}</p>{% endif %}</a><span>{{ obj.publish }}</span></small>
+									</div>
+								</div>
+								  
+								{% else %}
+
+									<!-- Small Card Without Image -->
+									<div class="card card_default card_small_no_image grid-item">
+										<div class="card-body">
+											<div class="card-title card-title-small"><a href="{{ obj.get_absolute_url_jb_app }}">{{ obj.get_markdown|truncatechars_html:120 }}</a></div>
+											<small class="post_meta"><a href="#">{% if obj.user.get_full_name %}<p>Author: {{ obj.user.get_full_name }}</p>{% endif %}</a><span>{{ obj.publish }}</span></small>
+										</div>
+									</div>								  
+								{% endif %}
+							
+							{% endfor %}
+
+								</div>
+							</div>
+						</div>
+
+					<div class="pagination load_more">
+						<span class="step-links load_more_button text-center trans_200">
+							{% if object_list.has_previous %}
+								<a href="?{{ page_request_var }}={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">previous</a>
+							{% endif %}
+					
+							<span class="current">
+								Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+							</span>
+					
+							{% if object_list.has_next %}
+								<a href="?{{ page_request_var }}={{ object_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">next</a>
+							{% endif %}
+						</span>
+					</div>		
+					{% endblock content %}
+		{% block footer%}
+			{{block.super}}
+		{% endblock footer %}
+{% block footer-script %}
+<script src="{% static 'plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static 'js/category.js' %}"></script>
+{% endblock footer-script %}

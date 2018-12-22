@@ -1,0 +1,55 @@
+{% extends "jb_app/base_1.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+<title>{% block header-stype %}Contact | {{block.super}} {% endblock header-stype %}</title>
+{% block header-style %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/contact.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/contact_responsive.css' %}">
+{% endblock header-style %}
+
+		{% block form_content %}
+		<!-- Post Comment -->
+		<div class="post_comment">
+			{% if form.errors %}
+			<div class="contact_form_container">
+				<class class="alert alert-danger" role="alert">
+					<strong>Fix the following errors</strong>
+					{% for key,value in form.errors.items %}
+						{{key}}: {{value.0}}<br/>
+					{% endfor %}
+				</class>
+			</div>
+			{% endif %}
+			<div class="contact_form_container">
+				<form method='POST' action=''>{% csrf_token %}
+					{{ form|crispy }}
+					<!-- <input type="text" class="contact_input contact_input_name" placeholder="Your Name" required="required">
+					<input type="email" class="contact_input contact_input_email" placeholder="Your Email" required="required">
+					<textarea class="contact_text" placeholder="Your Message" required="required"></textarea> -->
+					<button type="submit" class="contact_button">Send Message</button>
+				</form>
+			</div>
+		</div>
+		{% endblock form_content %}
+{% block footer-script %}
+<script src="{% static 'plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static 'js/contact.js' %}"></script>
+<script>
+		$(document).ready(function()
+		{
+			// personal jb_app script
+			const fn = document.getElementById('id_full_name')
+			const email = document.getElementById('id_email')
+			const msg = document.getElementById('id_message')
+		
+			fn.setAttribute('class', 'contact_input contact_input_name')
+			fn.setAttribute('placeholder', 'Your Name')
+		
+			email.setAttribute('class', 'contact_input contact_input_email')
+			email.setAttribute('placeholder', 'Your Email')
+		
+			msg.setAttribute('class', 'contact_text')
+			msg.setAttribute('placeholder', 'Your Message')
+		});
+		</script>
+{% endblock footer-script %}
