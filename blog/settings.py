@@ -24,24 +24,24 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'sm@g)(fbwdh5wc*xe@j++m9rh^uza5se9a57c5ptwkg*b@ki0x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True#False
+DEBUG = False
 
-ALLOWED_HOSTS = []#'127.0.0.1']
+ALLOWED_HOSTS = ['https://camer-info.herokuapp.com']
 
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = 'gregory.goufan@gmail.com'
-# EMAIL_HOST_PASSWORD = 'Goufan2016'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'gregory.goufan@gmail.com'
+EMAIL_HOST_PASSWORD = 'Goufan2016'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 # EMAIL
 # ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# https://docs.djangoproject.com/en/dev/ref/settings/#email-host
-EMAIL_HOST = 'localhost'
-# https://docs.djangoproject.com/en/dev/ref/settings/#email-port
-EMAIL_PORT = 1025
+# # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# # https://docs.djangoproject.com/en/dev/ref/settings/#email-host
+# EMAIL_HOST = 'localhost'
+# # https://docs.djangoproject.com/en/dev/ref/settings/#email-port
+# EMAIL_PORT = 1025
 
 # Application definition
 
@@ -107,6 +107,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+MIDDLEWARE = ['whitenoise.middleware.WhiteNoiseMiddleware'] + MIDDLEWARE
+
 # django-allauth
 # ------------------------------------------------------------------------------
 ACCOUNT_ALLOW_REGISTRATION = True
@@ -150,7 +152,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'blog.wsgi.application'
+# WSGI_APPLICATION = 'blog.wsgi.application'
 
 
 # Database
@@ -205,7 +207,7 @@ STATICFILES_DIRS = [
     #'/var/www/static/',
 ]
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn")
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 MEDIA_URL = "/media/"
