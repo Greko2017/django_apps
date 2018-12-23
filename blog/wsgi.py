@@ -9,18 +9,10 @@ https://docs.djangoproject.com/en/1.9/howto/deployment/wsgi/
 
 import os
 
-# from django.core.wsgi import get_wsgi_application
-from django.conf import settings
-from whitenoise import WhiteNoise
-from whitenoise.django import DjangoWhiteNoise
+from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "blog.settings")
 
-# application = get_wsgi_application()
+application = get_wsgi_application()
 
-application = WhiteNoise(
-    DjangoWhiteNoise(get_wsgi_application()), 
-    root = settings.MEDIA_ROOT,
-    prefix = '/media',
-)
 

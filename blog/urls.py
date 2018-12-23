@@ -21,10 +21,10 @@ urlpatterns = [
     #url(r'^posts/$', "<appname>.views.<function_name>"),
 ]
 
-handler400 = 'jb_app.views.bad_request'
-handler403 = 'jb_app.views.permission_denied'
-handler404 = 'jb_app.views.page_not_found'
-handler500 = 'jb_app.views.server_error'
+# handler400 = 'jb_app.views.bad_request'
+# handler403 = 'jb_app.views.permission_denied'
+# handler404 = 'jb_app.views.page_not_found'
+# handler500 = 'jb_app.views.server_error'
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
