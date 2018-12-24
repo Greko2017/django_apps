@@ -107,7 +107,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# MIDDLEWARE = ['whitenoise.middleware.WhiteNoiseMiddleware'] + MIDDLEWARE
+MIDDLEWARE = ['whitenoise.middleware.WhiteNoiseMiddleware'] + MIDDLEWARE
 
 # django-allauth
 # ------------------------------------------------------------------------------
@@ -207,7 +207,7 @@ STATICFILES_DIRS = [
     #'/var/www/static/',
 ]
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn")
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 MEDIA_URL = "/media/"
