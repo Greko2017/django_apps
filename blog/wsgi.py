@@ -14,7 +14,7 @@ from whitenoise import WhiteNoise
 from django.core.wsgi import get_wsgi_application
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media_cdn")
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn")
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "blog.settings")
 
