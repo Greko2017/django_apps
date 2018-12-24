@@ -22,4 +22,3 @@ application = get_wsgi_application()
 
 application = WhiteNoise(application, root=STATIC_ROOT)
 application.add_files(os.path.join(BASE_DIR), "static") 
-s
