@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'pagedown',
     'taggit',
+    'whitenoise.runserver_nostatic',
     
     # allauth
     'allauth',
@@ -99,6 +100,9 @@ MIDDLEWARE_CLASSES = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -107,7 +111,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-MIDDLEWARE = ['whitenoise.middleware.WhiteNoiseMiddleware'] + MIDDLEWARE
 
 # django-allauth
 # ------------------------------------------------------------------------------
@@ -207,7 +210,10 @@ STATICFILES_DIRS = [
     #'/var/www/static/',
 ]
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn")
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+STATICFILES_STORAGE = 'blog.storage.CompressedManifestStaticFilesStorage'
 
 
 MEDIA_URL = "/media/"
