@@ -79,7 +79,6 @@ def post_detail(request, slug=None):
 						)
 		return HttpResponseRedirect(new_comment.content_object.get_absolute_url_jb_app())
 
-
 	comments = instance.comments
 	context = {
 		"title": instance.title,
@@ -136,7 +135,7 @@ def post_update(request, slug=None):
 		instance.save()# Without this next line the tags won't be saved.
 		form.save_m2m()
 		messages.success(request, "<a href='#'>Item</a> Saved", extra_tags='html_safe')
-		return HttpResponseRedirect(instance.get_absolute_url())
+		return HttpResponseRedirect(instance.get_absolute_url_jb_app())
 		
 	context = {
 		"title": instance.title,
