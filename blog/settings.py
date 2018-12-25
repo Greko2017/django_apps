@@ -45,7 +45,6 @@ EMAIL_USE_TLS = True
 
 SITE_ID = 1
 
-
 # Application definition
 
 INSTALLED_APPS = [
