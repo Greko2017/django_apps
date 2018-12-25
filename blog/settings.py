@@ -43,6 +43,9 @@ EMAIL_USE_TLS = True
 # # https://docs.djangoproject.com/en/dev/ref/settings/#email-port
 # EMAIL_PORT = 1025
 
+SITE_ID = 1
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -78,12 +81,10 @@ INSTALLED_APPS = [
     'accounts',
     # 'jb_users',
 ]
-
 TAGGIT_CASE_INSENSITIVE = True
 
 AUTH_USER_MODEL = "jb_users.User"
 
-SITE_ID = 1
 
 CSRF_FAILURE_VIEW = "jb_app.views.csrf_403"
 
@@ -221,7 +222,7 @@ MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
 # WHITENOISE_STATIC_PREFIX = '/static/'
