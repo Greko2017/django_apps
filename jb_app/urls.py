@@ -41,9 +41,4 @@ urlpatterns = [
 	url(r'^signup$', signup, name='signup'),
 	url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate, name='activate'),
 
-    # url(r'^create/$', post_create),
-    # url(r'^(?P<slug>[\w-]+)/$', post_detail, name='detail'),
-    # url(r'^(?P<slug>[\w-]+)/edit/$', post_update, name='update'),
-    # url(r'^(?P<slug>[\w-]+)/delete/$', post_delete),
-    #url(r'^posts/$', "<appname>.views.<function_name>"),
 ]

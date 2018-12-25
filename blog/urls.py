@@ -16,8 +16,8 @@ urlpatterns = [
     url(r'^register/', register_view, name='register'),
     url(r'^login/', login_view, name='login'),
     url(r'^logout/', logout_view, name='logout'),
-    url(r'^camer-info/', include("jb_app.urls", namespace='camer-info')),    
-    url(r'^', include("posts.urls", namespace='posts')),
+    url(r'^', include("jb_app.urls", namespace='camer-info')),    
+    url(r'old-home^', include("posts.urls", namespace='posts')),
     #url(r'^posts/$', "<appname>.views.<function_name>"),
 ]
 
