@@ -34,6 +34,9 @@ from posts.models import Post
 from accounts.models import SignUp
 from accounts.forms import UserLoginForm, UserRegisterForm, ContactForm, SignUpForm
 
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+
 def home_page(request):
 
 	context = {
@@ -68,7 +71,7 @@ def contact_page(request):
 				contact_message, 
 				from_email, 
 				to_email, 
-				html_message=some_html_message,
+				#html_message=some_html_message,
 				fail_silently=False)
 
 	context = {
@@ -172,37 +175,38 @@ def logout_form_page(request):
     logout(request)
     return redirect("camer-info:home")
 
-# def bad_request(request, exception):
-#     context = RequestContext(request)
-#     err_code = 400
-#     response = render_to_response('error/400.html', {"code":err_code}, context)
-#     response.status_code = 400
-#     return response
 
-# def permission_denied(request, exception):
-#     context = RequestContext(request)
-#     err_code = 403
-#     response = render_to_response('error/403.html', {"code":err_code}, context)
-#     response.status_code = 403
-#     return response
+def handler400(request, exception):
+    context = RequestContext(request)
+    err_code = 400
+    response = render_to_response('400.html', {"code":err_code}, context)
+    response.status_code = 400
+    return response
 
-# def page_not_found(request, exception):
-#     context = RequestContext(request)
-#     err_code = 404
-#     response = render_to_response('error/404.html', {"code":err_code}, context)
-#     response.status_code = 404
-#     return response
+def handler403(request, exception):
+    context = RequestContext(request)
+    err_code = 403
+    response = render_to_response('403.html', {"code":err_code}, context)
+    response.status_code = 403
+    return response
 
-# def server_error(request, exception):
-#     context = RequestContext(request)
-#     err_code = 500
-#     response = render_to_response('error/500.html', {"code":err_code}, context)
-#     response.status_code = 500
-#     return response
+def handler404(request, exception):
+    context = RequestContext(request)
+    err_code = 404
+    response = render_to_response('404.html', {"code":err_code}, context)
+    response.status_code = 404
+    return response
 
-# def csrf_403(request, exception):
-# 	context = RequestContext(request)
-# 	err_code = '403_csrf'
-# 	response = render_to_response('403_csrf.html', {"code":err_code}, context)
-# 	response.status_code = 403
-# 	return response
+def handler500(request, exception):
+    context = RequestContext(request)
+    err_code = 500
+    response = render_to_response('500.html', {"code":err_code}, context)
+    response.status_code = 500
+    return response
+
+def csrf_403(request, exception):
+	context = RequestContext(request)
+	err_code = '403_csrf'
+	response = render_to_response('403_csrf.html', {"code":err_code}, context)
+	response.status_code = 403
+	return response

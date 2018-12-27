@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 from accounts.views import (login_view, register_view, logout_view, user_profile_view)
-
+ 
 urlpatterns = [
     
     url(r'^admin/', admin.site.urls),
