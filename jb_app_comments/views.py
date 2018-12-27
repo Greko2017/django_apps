@@ -67,7 +67,7 @@ def comment_thread(request, id):
 
         if parent_id:
             parent_qs = Comment.objects.filter(id=parent_id)
-            if parent_qs.exists() and parent_qs.count() == 1:
+            if parent_qs.exists() and parent_qs.count() == 1: 
                 parent_obj = parent_qs.first()
 
 

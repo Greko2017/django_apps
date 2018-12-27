@@ -18,7 +18,7 @@
                                 <li class="{% if nbar == 'contact' %}active{% endif %}"><a href="{% url 'camer-info:contact' %}">Contact</a></li>
                                
                                 
-                                {% if request.user.is_authenticated and request.user.is_superuser %}
+                                {% if request.user.is_authenticated %}
                                 <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Blog Setting' %}</a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -50,7 +50,7 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                       {% thumbnail request.user.picture "x30" as im %}
-                                        <img src="{{ im.url }}" style="border-radius: 50%;" alt="{% trans 'User Image' %}" class="user-image">
+                                        <img src="{{ im.url }}" style="border-radius: 50%; width: 30px;height: 30px" alt="{% trans 'User Image' %}" class="user-image">
                                       {% empty %}
                                         <img src="{% static 'img/user.png' %}" height="30px" alt="{% trans 'No Profile Picture' %}" />
                                       {% endthumbnail %}

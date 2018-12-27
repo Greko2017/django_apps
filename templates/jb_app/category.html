@@ -1,13 +1,15 @@
 {% extends "jb_app/base.html" %}
 {% load staticfiles %}
-<title>{% block header-stype %}category | {{block.super}} {% endblock header-stype %}</title>
+<title>{% block header-stype %}Articles | {{block.super}} {% endblock header-stype %}</title>
 {% block header-style %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles/category.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'styles/category_responsive.css' %}">
 {% endblock header-style %}
 
 	{% block home %}		
+	<div class="home" style="height: 100px;">
 		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="{% static 'images/category.jpg' %}" data-speed="0.8"></div>
+	</div>
 	{% endblock home %}
 	
 						{% block content %}
@@ -16,29 +18,6 @@
 						<div class="category">
 							<div class="section_panel d-flex flex-row align-items-center justify-content-start">
 								<div class="section_title">Latest Articles</div>
-								<div class="section_tags ml-auto">
-									<ul>
-										<li class="active"><a href="category">all</a></li>
-										<li><a href="category">style hunter</a></li>
-										<li><a href="category">vogue</a></li>
-										<li><a href="category">health & fitness</a></li>
-										<li><a href="category">travel</a></li>
-									</ul>
-								</div>
-								<div class="section_panel_more">
-									<ul>
-										<li>more
-											<ul>
-												<li><a href="category">new look 2018</a></li>
-												<li><a href="category">street fashion</a></li>
-												<li><a href="category">business</a></li>
-												<li><a href="category">recipes</a></li>
-												<li><a href="category">sport</a></li>
-												<li><a href="category">celebrities</a></li>
-											</ul>
-										</li>
-									</ul>
-								</div>
 							</div>
 							<div class="section_content">
 								<div class="grid clearfix">
@@ -66,7 +45,13 @@
 								{% endif %}
 							
 							{% endfor %}
-
+									<!-- Default Card With Background -->
+									<div class="card card_default card_default_with_background grid-item">
+										<div class="card_background" style="background-image:url()"></div>
+										<div class="card-body">
+											<div class="card-title card-title-small"><a href="post.html"></a></div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-import dj_database_url
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -28,20 +28,20 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['camer-info.herokuapp.com','*']
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'gregory.goufan@gmail.com'
-EMAIL_HOST_PASSWORD = 'Goufan2016'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'gregory.goufan@gmail.com'
+# EMAIL_HOST_PASSWORD = 'Goufan2016'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
 
 # EMAIL
 # ------------------------------------------------------------------------------
-# # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# # https://docs.djangoproject.com/en/dev/ref/settings/#email-host
-# EMAIL_HOST = 'localhost'
-# # https://docs.djangoproject.com/en/dev/ref/settings/#email-port
-# EMAIL_PORT = 1025
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-host
+EMAIL_HOST = 'localhost'
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-port
+EMAIL_PORT = 1025
 
 SITE_ID = 1
 
@@ -63,10 +63,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'pagedown',
     'taggit',
-
-    #Delete for development whitenoise.runserver_nostatic
-    # 'whitenoise.runserver_nostatic',
-    
+   
     # allauth
     'allauth',
     'allauth.account',
@@ -122,7 +119,7 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username'
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 ACCOUNT_LOGOUT_REDIRECT_URL = 'camer-info:home'
 
@@ -209,19 +206,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    #'/var/www/static/',
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-STATICFILES_STORAGE = 'blog.storage.CompressedManifestStaticFilesStorage'
-WHITENOISE_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES['default'].update(db_from_env)
-
-WHITENOISE_STATIC_PREFIX = '/static/'
+# Activate Django-Heroku.
+django_heroku.settings(locals())

@@ -1,7 +1,7 @@
 {% extends "base_users_child.html" %}
 {% load static i18n %}
 {% load thumbnail %}
-
+ 
 {% block title %}{{ object.username }}{% endblock %}
 
 {% block head %}
@@ -12,7 +12,7 @@
   <div class="container">
 
     {% thumbnail object.picture "x250" as im %}
-      <img src="{{ im.url }}" alt="Picture Profile" id="pic">
+      <img src="{{ im.url }}" alt="Picture Profile" id="pic" class="img-responsive">
     {% empty %}
       <img class="pull-right" src="{% static 'img/user.png' %}" height="250px" alt="No Profile Picture" />
     {% endthumbnail %}
@@ -48,10 +48,6 @@
     <!-- Data tiles -->
     <div class="row tile_count">
       <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
-        <span class="count_top"><i class="glyphicon glyphicon-envelope"></i> {% trans 'Feeds' %}</span>
-        <div class="count">0</div>
-      </div>
-      <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
         <span class="count_top"><i class="glyphicon glyphicon-pencil"></i> {% trans 'Articles' %}</span>
         <div class="count">0</div>
       </div>
@@ -60,15 +56,7 @@
         <div class="count">0</div>
       </div>
       <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
-        <span class="count_top"><i class="glyphicon glyphicon-question-sign"></i> {% trans 'Questions' %}</span>
-        <div class="count">0</div>
-      </div>
-      <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
-        <span class="count_top"><i class="glyphicon glyphicon-education"></i> {% trans 'Answers' %}</span>
-        <div class="count">0</div>
-      </div>
-      <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
-        <span class="count_top"><i class="glyphicon glyphicon-fire"></i> {% trans 'Global Interactions' %}</span>
+        <span class="count_top"><i class="glyphicon glyphicon-fire"></i> {% trans 'Replies' %}</span>
         <div class="count">0</div>
       </div>
     </div>

@@ -1,61 +1,47 @@
 {% load staticfiles %}
+{% load urlify %}
+{% load crispy_forms_tags %}
+{% load thumbnail %}
+{% load static i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Contact</title>
+<title>Post</title>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="Demo project">
+<meta name="description" content="Camer Info+">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap4/bootstrap.min.css' %}">
 <link href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'styles/contact.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'styles/contact_responsive.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'plugins/jquery.mb.YTPlayer-3.1.12/jquery.mb.YTPlayer.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/post_nosidebar.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/post_nosidebar_responsive.css' %}">
+<style>
+		.textarea
+		{
+			max-height: 100px;
+		}
+		.dropdown-item {
+			display: block;
+			width: 100%;
+			padding: .25rem 1.5rem;
+			clear: both;
+			font-weight: 400 !important;
+			color: #212529 !important;
+			text-align: inherit;
+			white-space: nowrap;
+			background-color: transparent;
+			border: 0;
+		}
+		</style>
 </head>
 <body>
 
-<div class="super_container">
-
-	<!-- Header -->
-
-	<header class="header">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="header_content d-flex flex-row align-items-center justify-content-start">
-						<div class="logo"><a href="#">avision</a></div>
-						<nav class="main_nav">
-							<ul>
-								<li class="active"><a href="index.html">Home</a></li>
-								<li><a href="#">Fashion</a></li>
-								<li><a href="#">Gadgets</a></li>
-								<li><a href="#">Lifestyle</a></li>
-								<li><a href="#">Video</a></li>
-								<li><a href="contact.html">Contact</a></li>
-							</ul>
-						</nav>
-						<div class="search_container ml-auto">
-							<div class="weather">
-								<div class="temperature">+10°</div>
-								<img class="weather_icon" src="{% static 'images/cloud.png' %}" alt="">
-							</div>
-							<form action="#">
-								<input type="search" class="header_search_input" required="required" placeholder="Type to Search...">
-								<img class="header_search_icon" src="{% static 'images/search.png' %}" alt="">
-							</form>
-							
-						</div>
-						<div class="hamburger ml-auto menu_mm">
-							<i class="fa fa-bars trans_200 menu_mm" aria-hidden="true"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</header>
+<div class="super_container">	
+		{% include 'jb_app/header.html' %}
 
 	<!-- Menu -->
 
@@ -65,7 +51,7 @@
 		<div class="search">
 			<form action="#">
 				<input type="search" class="header_search_input menu_mm" required="required" placeholder="Type to Search...">
-				<img class="header_search_icon menu_mm" src="{% static 'images/search_2.png' %}" alt="">
+				<img class="header_search_icon menu_mm" src="{% static 'images/search_2.png" alt="">
 			</form>
 		</div>
 		<nav class="menu_nav">
@@ -82,72 +68,120 @@
 	
 	<!-- Home -->
 
-	<div class="home">
-		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="{% static 'images/regular.jpg' %}" data-speed="0.8"></div>
-		<div class="home_content">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-6 offset-lg-3">
-						<!-- Post Comment -->
-						<div class="post_comment">
-							<div class="contact_form_container">
-								<form action="#">
-									<input type="text" class="contact_input contact_input_name" placeholder="Your Name" required="required">
-									<input type="email" class="contact_input contact_input_email" placeholder="Your Email" required="required">
-									<textarea class="contact_text" placeholder="Your Message" required="required"></textarea>
-									<button type="submit" class="contact_button">Send Message</button>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>		
-		</div>
+	<div class="home" style="height: 100px;">
+		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="{% static 'images/post_nosidebar.jpg' %}" data-speed="0.8"></div>
 	</div>
+	
+	<!-- Page Content -->
 
-	<!-- Footer -->
-
-	<footer class="footer">
+	<div class="page_content">
 		<div class="container">
-			<div class="row row-lg-eq-height">
-				<div class="col-lg-9 order-lg-1 order-2">
-					<div class="footer_content">
-						<div class="footer_logo"><a href="#">avision</a></div>
-						<div class="footer_social">
-							<ul>
-								<li class="footer_social_facebook"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-								<li class="footer_social_twitter"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-								<li class="footer_social_pinterest"><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-								<li class="footer_social_vimeo"><a href="#"><i class="fa fa-vimeo" aria-hidden="true"></i></a></li>
-								<li class="footer_social_instagram"><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-								<li class="footer_social_google"><a href="#"><i class="fa fa-google" aria-hidden="true"></i></a></li>
-							</ul>
+			<div class="row">
+
+				<!-- Post Content -->
+
+				<div class="col-lg-10 offset-lg-1">
+					<div class="post_content">
+
+						<!-- Post Body -->
+
+						<div class="post_body">
+							<figure>
+								<img src="{{ comment.content_object.image.url }}" alt="" class="img-responsive">
+								<figcaption>{{comment.content_object.title}}</figcaption>
+							</figure>
+							<p class="post_p">{{comment.content_object.content}}</p>
+							
+							<div class="tags_share d-flex flex-row align-items-center justify-content-start">
+								<div class="post_tags">
+									<ul>
+											{% if comment.content_object.tags %}
+											{% for tag in comment.content_object.tags.all %}
+												<li class="post_tag"><a href="#">{{ tag }}</a></li>
+											{% endfor %}
+										{% else %}
+											<li class="post_tag"><a href="#">No Tags</a></li>
+										{% endif %}
+									</ul>
+								</div>
+								<div class="post_share ml-sm-auto">
+									<span>share</span>
+									<ul class="post_share_list">
+										<li class="post_share_item"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+										<li class="post_share_item"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+										<li class="post_share_item"><a href="#"><i class="fa fa-google" aria-hidden="true"></i></a></li>
+									</ul>
+								</div>
+							</div>
+							<p class="post_p"><footer>via {{ comment.user }} | {{ comment.timestamp|timesince }} ago | {% if comment.children.count > 0 %}{{ comment.children.count }} Comment{% if comment.children.count > 1 %}s{% endif %} {% endif %} {% if request.user == comment.user %}<a href='{{ comment.get_delete_url }}'>Delete</a> {% endif %}</p>
+							<hr/>
+								
 						</div>
-						<div class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
 					</div>
 				</div>
-				<div class="col-lg-3 order-lg-2 order-1">
-					<div class="subscribe">
-						<div class="subscribe_background"></div>
-						<div class="subscribe_content">
-							<div class="subscribe_title">Subscribe</div>
-							<form action="#">
-								<input type="email" class="sub_input" placeholder="Your Email" required="required">
-								<button class="sub_button">
-									<svg version="1.1" id="link_arrow_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-										 width="19px" height="13px" viewBox="0 0 19 13" enable-background="new 0 0 19 13" xml:space="preserve">
-										<polygon fill="#FFFFFF" points="12.475,0 11.061,0 17.081,6.021 0,6.021 0,7.021 17.038,7.021 11.06,13 12.474,13 18.974,6.5 "/>
-									</svg>
-								</button>
-							</form>
+
+			</div>
+
+
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+
+					<!-- Post Comment -->
+					<div class="post_comment">
+							<div class="comments_title">Replies <span>{% if comments.children.count > 0 %}({{comments.children.count}}){% else %}(0){% endif %}</span></div>						
+						<div class="post_comment_form_container">
+							{% if request.user.is_authenticated %}	
+								<form method="POST" action="."> {% csrf_token %}
+									{{ form|crispy }}
+									<input type='hidden' name='parent_id' value='{{ comment.id }}'>
+									<input type='submit' class="reply_button ml-auto" value='Reply' class='btn btn-default'>
+								</form>
+								{% else %}
+								<p class="post_p">You must login to Reply </p>
+							{% endif %}
 						</div>
+					</div>
+
+					<!-- Comments -->
+					<div class="comments">
+						<div class="comments_container">
+								{% for child_comment in comment.children %}
+								<ul class="comment_list">										
+										<li class="comment">
+											<div class="comment_body">
+												<div class="comment_panel d-flex flex-row align-items-center justify-content-start">
+													<div class="comment_author_image">
+														<div>															
+															{% if child_comment.user.picture %}
+																<img src="{{child_comment.user.picture.url}}" height="30px" alt="{% trans 'No Profile Picture' %}" />
+															{% else %}
+																<img src="{% static 'img/user.png' %}" height="30px" alt="{% trans 'No Profile Picture' %}" />
+															{% endif %}
+														</div>
+													</div>
+													<small class="post_meta"><a href="#">{{child_comment.user}}</a><span>{{child_comment.timestamp|timesince}} ago | {% if request.user == child_comment.user %}<a href='{{ child_comment.get_delete_url }}' style="color:mediumspringgreen;">Delete</a>{% endif %}</span></small>													
+												</div>
+												<div class="comment_content">
+													<p>{{ child_comment.content }}</p>
+												</div>
+											</div>
+										</li>
+									</ul>
+								{% endfor %}
+						</div>
+					</div>
+					<div class="load_more">
+						<div id="load_more" class="load_more_button text-center trans_200">Load More</div>
 					</div>
 				</div>
 			</div>
+
 		</div>
-	</footer>
+
+	</div>
+
+	<!-- Footer -->
+	{% include 'jb_app/footer.html' %}
 </div>
 
 <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
@@ -157,6 +191,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="{% static 'plugins/easing/easing.js' %}"></script>
 <script src="{% static 'plugins/masonry/masonry.js' %}"></script>
 <script src="{% static 'plugins/parallax-js-master/parallax.min.js' %}"></script>
-<script src="{% static 'js/contact.js' %}"></script>
+<script src="{% static 'js/post_nosidebar.js' %}"></script>
 </body>
 </html>

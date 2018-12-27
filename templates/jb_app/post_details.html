@@ -55,8 +55,7 @@
 			{% endif %}
 
 		<div class="home_content">
-			<div class="post_category trans_200"><a href="category.html" class="trans_200">sport</a></div>
-			<div class="post_title">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
+			<div class="post_title">{{ instance.title }}</div>
 		</div>
 	</div>
 	
@@ -73,11 +72,12 @@
 						<!-- Bottom Panel -->
 						<div class="post_panel bottom_panel d-flex flex-row align-items-center justify-content-start">
 								<div class="author_image">
-									<div>{% thumbnail comments.user.picture "x70" as im %}
-										<img src="{{ im.url }}" alt=""/>
-										{% empty %}
+									<div>
+									{% if instance.user.picture %}
+										<img src="{{instance.user.picture.url}}" height="50px" alt="" />
+									{% else %}
 										<img src="{% static 'img/user.png' %}" height="50px" alt="{% trans 'No Profile Picture' %}" />
-									  {% endthumbnail %}
+									{% endif %}
 									</div>
 								</div>
 								<div class="post_meta"><a href="#">{% if instance.user.get_username %}<p>Author: {{ instance.user.get_username }}</p>{% endif %}</a><p>{{ title }} <small>{% if instance.draft %}<span style='color:red;'>Draft</span> {% endif %}{{ instance.publish }}</small></p></div>
@@ -120,7 +120,7 @@
 								<div class="card card_small_with_image grid-item">
 									<img class="card-img-top" src="{% static 'images/post_25.jpg' %}" alt="https://unsplash.com/@jakobowens1">
 									<div class="card-body">
-										<div class="card-title card-title-small"><a href="post">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</a></div>
+										<div class="card-title card-title-small"><a href="#">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</a></div>
 										<small class="post_meta"><a href="#">{% if instance.user.get_username %}<p>Author: {{ instance.user.get_username }}</p>{% endif %}</a><p>{{ title }} <small>{% if instance.draft %}<span style='color:red;'>Draft</span> {% endif %}{{ instance.publish }}</small></p></small>
 									</div>
 								</div>
@@ -129,7 +129,7 @@
 								<div class="card card_small_with_image grid-item">
 									<img class="card-img-top" src="{% static 'images/post_2.jpg' %}" alt="https://unsplash.com/@jakobowens1">
 									<div class="card-body">
-										<div class="card-title card-title-small"><a href="post">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</a></div>
+										<div class="card-title card-title-small"><a href="#">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</a></div>
 										<small class="post_meta"><a href="#">{% if instance.user.get_username %}<p>Author: {{ instance.user.get_username }}</p>{% endif %}</a><p>{{ title }} <small>{% if instance.draft %}<span style='color:red;'>Draft</span> {% endif %}{{ instance.publish }}</small></p></small>
 									</div>
 								</div>
@@ -138,7 +138,7 @@
 								<div class="card card_small_with_image grid-item">
 									<img class="card-img-top" src="{% static 'images/post_26.jpg' %}" alt="https://unsplash.com/@jakobowens1">
 									<div class="card-body">
-										<div class="card-title card-title-small"><a href="post">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</a></div>
+										<div class="card-title card-title-small"><a href="#">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</a></div>
 										<small class="post_meta"><a href="#">{% if instance.user.get_username %}<p>Author: {{ instance.user.get_username }}</p>{% endif %}</a><p>{{ title }} <small>{% if instance.draft %}<span style='color:red;'>Draft</span> {% endif %}{{ instance.publish }}</small></p></small>
 									</div>
 								</div>
@@ -165,7 +165,7 @@
 							</div>
 
 							<!-- Comments -->
-							<div class="comments">
+							<div class="comments"> 
 								<div class="comments_title">Comments <span>{% if instance.comments.count %}({{instance.comments.count}}){% else %}(0){% endif %}</span></div>
 								<div class="row">
 									<div class="col-xl-8">
@@ -177,11 +177,12 @@
 														<div class="comment_panel d-flex flex-row align-items-center justify-content-start">
 															
 															<div class="comment_author_image">
-																<div>{% thumbnail comments.user.picture.url "x30" as im %}
-																		<img src="{{ im.url }}" alt=""/>
-																		{% empty %}
+																<div>															
+																	{% if comment.user.picture %}
+																		<img src="{{comment.user.picture.url}}" height="35px" alt="" />
+																	{% else %}
 																		<img src="{% static 'img/user.png' %}" height="30px" alt="{% trans 'No Profile Picture' %}" />
-																	  {% endthumbnail %}
+																	{% endif %}
 																</div>
 															</div>
 
@@ -243,6 +244,36 @@
 <script src="{% static 'plugins/masonry/masonry.js' %}"></script>
 <script src="{% static 'plugins/parallax-js-master/parallax.min.js' %}"></script>
 <script src="{% static 'js/post.js' %}"></script>
+
+<script>
+		if(!jQuery) {throw new Error("This page requires jQuery")}
+		
+		$(function(){
+			function readInput(){
+				var content = document.getElementById('id_content').value
+		
+				$.ajax({
+					type: "POST",
+					url: "",
+					data:{
+					content: content,
+					csrfmiddlewaretoken: '{{ csrf_token }}'
+					},
+					dataType: 'json',    
+					success: function(json){
+						console.log(json)
+						window.location.replace("{% url 'camer-info:posts:detail' slug %}");
+					}
+				});
+			}
+			$("comment_button").click(function(e){
+				e.preventDefault();
+				readInput();
+			});
+		});
+		</script>
+		
+
 <script type="text/javascript">
 	$(".comment-reply").hide();	
 	$(document).ready(function(){
