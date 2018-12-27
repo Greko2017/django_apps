@@ -33,6 +33,8 @@ def post_create(request):
 		instance = form.save(commit=False)
 		instance.user = request.user
 		instance.save()
+		# Without this next line the tags won't be saved.
+		form.save_m2m()
 		# message success
 		messages.success(request, "Successfully Created")
 		return HttpResponseRedirect(instance.get_absolute_url_jb_app())
@@ -132,7 +134,8 @@ def post_update(request, slug=None):
 	form = PostForm(request.POST or None, request.FILES or None, instance=instance)
 	if form.is_valid():
 		instance = form.save(commit=False)
-		instance.save()# Without this next line the tags won't be saved.
+		instance.save()
+		# Without this next line the tags won't be saved.
 		form.save_m2m()
 		messages.success(request, "<a href='#'>Item</a> Saved", extra_tags='html_safe')
 		return HttpResponseRedirect(instance.get_absolute_url_jb_app())

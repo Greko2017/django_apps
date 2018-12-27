@@ -80,7 +80,7 @@
 <div class="menu d-flex flex-column align-items-end justify-content-start text-right menu_mm trans_400">
     <div class="menu_close_container"><div class="menu_close"><div></div><div></div></div></div>
     <div class="logo menu_mm"><a href="#">Camer-Info+</a></div>
-    <nav class="menu_nav">
+    <nav class="menu_nav"> 
             <ul class="menu_mm">
                 {% if not request.user.is_authenticated %}
                 <li class="{% if nbar == 'login' %}active{% endif %} menu_mm"><a href="{% url 'account_login' %}">Login</a></li>
@@ -102,6 +102,19 @@
             <li class="{% if nbar == 'blog' %}active{% endif %} menu_mm"><a href="{% url 'camer-info:blog' %}">Blog</a></li>
             <li class="{% if nbar == 'about' %}active{% endif %} menu_mm"><a href="{% url 'camer-info:about' %}">About Us</a></li>
             <li class="{% if nbar == 'contact' %}active{% endif %} menu_mm"><a href="{% url 'camer-info:contact' %}">Contact</a></li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% trans 'Blog Setting' %}</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'camer-info:posts:create' %}"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; {% trans 'Create Blog' %}</a>                                        
+                        {% if nbar == 'blog_detail' and request.user == instance.user %}
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'camer-info:posts:update' slug %}"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i>&nbsp; {% trans "Edit" %}</a>
+            <a class="dropdown-item" href="{% url 'camer-info:posts:delete' slug %}"><i class="fa fa-trash-o fa-fw" aria-hidden="true"></i>&nbsp; {% trans "Delete" %}</a>
+            {% endif %}
+                </div>
+            </li>
+            {% endif %}            
         </ul>
     </nav>
 </div>
