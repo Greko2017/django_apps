@@ -88,7 +88,7 @@ def blog_form_page(request):
 	if request.user.is_staff or request.user.is_superuser:
 		queryset_list = Post.objects.all()
 	
-	query = request.GET.get("q")
+	query = request.GET.get("q") 
 	if query:
 		queryset_list = queryset_list.filter(
 				Q(title__icontains=query)|
@@ -109,7 +109,7 @@ def blog_form_page(request):
 		queryset = paginator.page(paginator.num_pages)
 
 
-	context = {
+	context = { 
 		"object_list": queryset, 
 		"title": "List",
 		"page_request_var": page_request_var,

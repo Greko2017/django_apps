@@ -1,4 +1,5 @@
 {% extends "jb_app/base.html" %}
+{% load static i18n thumbnail %}
 {% load staticfiles %}
 <title>{% block header-stype %}Articles | {{block.super}} {% endblock header-stype %}</title>
 {% block header-style %}
@@ -16,6 +17,18 @@
 						<!-- Category -->
 
 						<div class="category">
+						<div class="col-sm-6 col-sm-offset-3">
+							<form method='GET' action='' class="row">
+								<div class="col-sm-4">
+									<h4>{% trans 'Search :' %}</h4>
+								</div>
+								<div class="col-sm-8 col-sm-offset-3 ml-auto">
+									<input type="search" name='q' class="header_search_input" style="background-color:grey;" required="required" placeholder="Type to Search..." value='{{ request.GET.q }}'>
+									<img class="header_search_icon" src="{% static 'images/search.png' %}" alt="">
+								</div>
+							</form>
+						</div>
+						
 							<div class="section_panel d-flex flex-row align-items-center justify-content-start">
 								<div class="section_title">Latest Articles</div>
 							</div>

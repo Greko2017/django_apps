@@ -34,8 +34,8 @@
                             </ul>
                         </nav>
                         <div class="search_container ml-auto">
-                            <form action="#">
-                                <input type="search" class="header_search_input" required="required" placeholder="Type to Search...">
+                            <form method='GET' action=''>
+                                    <input type="search" name='q' class="header_search_input" required="required" placeholder="Type to Search..." value='{{ request.GET.q }}'>
                                 <img class="header_search_icon" src="{% static 'images/search.png' %}" alt="">
                             </form>							
                         </div>
@@ -91,8 +91,8 @@
             </ul>
         </nav>
     <div class="search">
-        <form action="#">
-            <input type="search" class="header_search_input menu_mm" required="required" placeholder="Type to Search...">
+        <form method='GET' action=''>
+                <input type="search" name='q' class="header_search_input" required="required" placeholder="Type to Search..." value='{{ request.GET.q }}'>
             <img class="header_search_icon menu_mm" src="{% static 'images/search_2.png' %}" alt="">
         </form>
     </div>
