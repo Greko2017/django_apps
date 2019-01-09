@@ -2,7 +2,7 @@ import allauth
 from django.conf import settings
 from django.conf.urls import include, url  
 from django.conf.urls.static import static
-# from django.contrib import admin
+from django.contrib import admin
 from django.views import defaults as default_views 
 import re 
 # from accounts.views import (login_view, register_view, logout_view, user_profile_view)
