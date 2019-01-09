@@ -3,6 +3,8 @@
 {% load crispy_forms_tags %}
 {% load thumbnail %}
 {% load static i18n %}
+{% load get_first_three_posts %}
+{% get_first_three_posts as first_three_posts %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,7 +83,7 @@
 									{% endif %}
 									</div>
 								</div>
-								<div class="post_meta"><a href="#">{% if instance.user.get_username %}<p>Author: {{ instance.user.get_username }}</p>{% endif %}</a><p>{{ title }} <small>{% if instance.draft %}<span style='color:red;'>Draft</span> {% endif %}{{ instance.publish }}</small></p></div>
+								<div class="post_meta"><a href="{{instance.user.get_absolute_url}}">{% if instance.user.get_username %}<p>Author: {{ instance.user.get_username }}</p>{% endif %}</a><p>{{ title }} <small>{% if instance.draft %}<span style='color:red;'>Draft</span> {% endif %}{{ instance.publish }}</small></p></div>
 								<div class="post_share ml-sm-auto">
 									<span>share</span>
 									<ul class="post_share_list">
@@ -115,35 +117,21 @@
 						
 						<!-- Similar Posts -->
 						<div class="similar_posts">
-							<div class="grid clearfix">
+							<div class="grid clearfix"> 
 
+								
+								{% for post in first_three_posts %}	
 								<!-- Small Card With Image -->
 								<div class="card card_small_with_image grid-item">
-									<img class="card-img-top" src="{% static 'images/post_25.jpg' %}" alt="https://unsplash.com/@jakobowens1">
+									<img class="card-img-top" src="{{post.image.url}}" alt="">
 									<div class="card-body">
-										<div class="card-title card-title-small"><a href="#">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</a></div>
-										<small class="post_meta"><a href="#">{% if instance.user.get_username %}<p>Author: {{ instance.user.get_username }}</p>{% endif %}</a><p>{{ title }} <small>{% if instance.draft %}<span style='color:red;'>Draft</span> {% endif %}{{ instance.publish }}</small></p></small>
+										<div class="card-title card-title-small"><a href="{{post.get_absolute_url_jb_app}}">{{post.title}}</a></div>
+										<small class="post_meta"><a href="{{post.user.get_absolute_url}}">{% if post.user.get_username %}<p>{{ post.user.get_username }}</p>{% endif %}</a><p><small>{% if post.draft %}<span style='color:red;'>Draft</span> {% endif %}{{ post.publish }}</small></p></small>
 									</div>
 								</div>
-
-								<!-- Small Card With Image -->
-								<div class="card card_small_with_image grid-item">
-									<img class="card-img-top" src="{% static 'images/post_2.jpg' %}" alt="https://unsplash.com/@jakobowens1">
-									<div class="card-body">
-										<div class="card-title card-title-small"><a href="#">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</a></div>
-										<small class="post_meta"><a href="#">{% if instance.user.get_username %}<p>Author: {{ instance.user.get_username }}</p>{% endif %}</a><p>{{ title }} <small>{% if instance.draft %}<span style='color:red;'>Draft</span> {% endif %}{{ instance.publish }}</small></p></small>
-									</div>
-								</div>
-
-								<!-- Small Card With Image -->
-								<div class="card card_small_with_image grid-item">
-									<img class="card-img-top" src="{% static 'images/post_26.jpg' %}" alt="https://unsplash.com/@jakobowens1">
-									<div class="card-body">
-										<div class="card-title card-title-small"><a href="#">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</a></div>
-										<small class="post_meta"><a href="#">{% if instance.user.get_username %}<p>Author: {{ instance.user.get_username }}</p>{% endif %}</a><p>{{ title }} <small>{% if instance.draft %}<span style='color:red;'>Draft</span> {% endif %}{{ instance.publish }}</small></p></small>
-									</div>
-								</div>
-
+									
+								{% endfor %}
+								
 							</div>
 
 							<!-- Post Comment -->
@@ -179,7 +167,7 @@
 															
 															<div class="comment_author_image">
 																<div>															
-																	{% if comment.user.picture %}
+																	{% if comment.user.picture %} 
 																		<img src="{{comment.user.picture.url}}" height="35px" alt="" />
 																	{% else %}
 																		<img src="{% static 'img/user.png' %}" height="30px" alt="{% trans 'No Profile Picture' %}" />

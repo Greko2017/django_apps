@@ -1,0 +1,93 @@
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>About | Camer Info+</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Demo project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap4/bootstrap.min.css' %}">
+<link href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'plugins/OwlCarousel2-2.2.1/animate.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/regular.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/regular_responsive.css' %}">
+<style>
+		.textarea
+		{
+			max-height: 100px;
+		}
+		.dropdown-item {
+			display: block;
+			width: 100%;
+			padding: .25rem 1.5rem;
+			clear: both;
+			font-weight: 400 !important;
+			color: #212529 !important;
+			text-align: inherit;
+			white-space: nowrap;
+			background-color: transparent;
+			border: 0;
+		}
+		</style>
+</head>
+<body>
+
+<div class="super_container">
+
+	{% include 'jb_app/header.html' %}
+	
+	<!-- Home -->
+
+	<div class="home" style="height: 100px;">
+		<div class="home_background parallax-window"  data-parallax="scroll" data-image-src="{% static 'images/regulier.jpg' %}" data-speed="0.8"></div>
+	</div>
+	
+	<!-- Page Content -->
+
+	<div class="page_content">
+		<div class="container">
+			<div class="row">
+
+				<!-- Post Content -->
+
+				<div class="col-lg-10 offset-lg-1">
+					<div class="post_content">
+
+						<!-- Post Body -->
+
+						<div class="post_body">
+							
+                            <div class="section_title">{{ title }}</div>
+                            <hr>
+                            <form method='POST' action='' enctype='multipart/form-data'>{% csrf_token %}
+                                {{ form|crispy }} 
+                            <input type='submit' class='btn btn-success' value='{{ title }}' />
+                            </form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	{% include 'jb_app/footer.html' %}
+</div>
+
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static 'styles/bootstrap4/bootstrap.min.js' %}"></script>
+<script src="{% static 'plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+<script src="{% static 'plugins/easing/easing.js' %}"></script>
+<script src="{% static 'plugins/masonry/masonry.js' %}"></script>
+<script src="{% static 'plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static 'js/regular.js' %}"></script>
+</body>
+</html>

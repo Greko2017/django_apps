@@ -1,9 +1,4 @@
 try:
-    from urllib import quote_plus #python 2
-except:
-    pass
-
-try:
     from urllib.parse import quote_plus #python 3
 except: 
     pass
@@ -26,11 +21,12 @@ from posts.models import Post
 
 def post_create(request):
 	if not request.user.is_authenticated:#not request.user.is_staff or not request.user.is_superuser:
-		raise Http404()
+		raise Http404("Please login to create articles.")
 		
 	form = PostForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
 		instance = form.save(commit=False)
+		# instance.category = form.cleaned_data.get("category")
 		instance.user = request.user
 		instance.save()
 		# Without this next line the tags won't be saved.
@@ -45,14 +41,14 @@ def post_create(request):
 
 def post_detail(request, slug=None):
 	instance = get_object_or_404(Post, slug=slug)
-	if instance.publish > timezone.now().date() or instance.draft:
-		if not request.user.is_staff or not request.user.is_superuser:
-			raise Http404
+	# if instance.publish > timezone.now().date() or instance.draft:
+	# 	if not request.user.is_staff or not request.user.is_superuser:
+	# 		raise Http404
 	share_string = quote_plus(instance.content)
 
 	initial_data = {
 			"content_type": instance.get_content_type,
-			"object_id": instance.id
+			"object_id": instance.id 
 	}
 	form = CommentForm(request.POST or None, initial=initial_data)
 	if form.is_valid() and request.user.is_authenticated:
@@ -93,11 +89,11 @@ def post_detail(request, slug=None):
 	}
 	return render(request, "jb_app/post_details.html", context)
 
-def post_list(request):
+def post_list(request): 
 	today = timezone.now().date()
 	queryset_list = Post.objects.active() #.order_by("-timestamp")
 	if request.user.is_staff or request.user.is_superuser:
-		queryset_list = Post.objects.all()
+		queryset_list = Post.objects.all() 
 	
 	query = request.GET.get("q")
 	if query:
@@ -129,15 +125,16 @@ def post_list(request):
 
 def post_update(request, slug=None):
 	if not request.user.is_authenticated:#request.user.is_staff or not request.user.is_superuser:
-		raise Http404
+		raise Http404("please login first, to update your post")
 	instance = get_object_or_404(Post, slug=slug)
 	form = PostForm(request.POST or None, request.FILES or None, instance=instance)
 	if form.is_valid():
 		instance = form.save(commit=False)
+		# instance.category = form.cleaned_data.get("category")
 		instance.save()
 		# Without this next line the tags won't be saved.
 		form.save_m2m()
-		messages.success(request, "<a href='#'>Item</a> Saved", extra_tags='html_safe')
+		messages.success(request, "Post Updated", extra_tags='html_safe')
 		return HttpResponseRedirect(instance.get_absolute_url_jb_app())
 		
 	context = {
@@ -151,8 +148,8 @@ def post_update(request, slug=None):
 
 def post_delete(request, slug=None):
 	if not request.user.is_authenticated:#request.user.is_staff or not request.user.is_superuser:
-		raise Http404
+		raise Http404("you are not allowed to delete this article")
 	instance = get_object_or_404(Post, slug=slug)
 	instance.delete()
 	messages.success(request, "Successfully deleted")
-	return redirect("posts:list")
+	return redirect("camer-info:posts:list")

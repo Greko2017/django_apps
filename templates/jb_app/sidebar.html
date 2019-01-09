@@ -1,4 +1,10 @@
 {% load staticfiles %}
+{% load get_firsts_three_categories %}
+{% load get_existing_posts %}
+{% load month_to_str %}
+
+{% get_existing_posts as existing_posts %}
+{% get_firsts_three_categories as firsts_three_categories  %}
 <!-- Sidebar -->
 
 <div class="col-lg-3">
@@ -37,87 +43,33 @@
                 <!-- Top Stories Slider -->
                 <div class="sidebar_slider_container">
                     <div class="owl-carousel owl-theme sidebar_slider_top">
-
+                                
+                    
+                    {% for category in firsts_three_categories %}
+                        
                         <!-- Top Stories Slider Item -->
                         <div class="owl-item">
 
+                                {% for post in category.posts.get_first_three %}  
                             <!-- Sidebar Post -->
                             <div class="side_post">
-                                <a href="{% url 'camer-info:blog' %}">
+                                <a href="{{post.get_absolute_url_jb_app}}"> <!-- {% url 'camer-info:blog' %}"> -->
                                     <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                        <div class="side_post_image"><div><img src="{% static 'images/top_1.jpg' %}" alt=""></div></div>
+                                        <div class="side_post_image"><div><img src="{{ post.image.url }}" alt=""></div></div>
                                         <div class="side_post_content">
-                                            <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                            <small class="post_meta">Katy Liu<span>Sep 29</span></small>
+                                            <div class="side_post_title">{{post.title}}</div> 
+                                            <small class="post_meta">{% if post.user.get_username %}{{ post.user.get_username }}{% endif %}<span>{{ post.publish }}</span></small>
+                                            
                                         </div>
                                     </div>
                                 </a>
                             </div>
-
-                            <!-- Sidebar Post -->
-                            <div class="side_post">
-                                <a href="{% url 'camer-info:blog' %}">
-                                    <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                        <div class="side_post_image"><div><img src="{% static 'images/top_2.jpg' %}" alt=""></div></div>
-                                        <div class="side_post_content">
-                                            <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                            <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-               
-                        </div>
-
-                        <!-- Top Stories Slider Item -->
-                        <div class="owl-item">
-
-                            <!-- Sidebar Post -->
-                            <div class="side_post">
-                                <a href="{% url 'camer-info:blog' %}">
-                                    <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                        <div class="side_post_image"><div><img src="{% static 'images/top_3.jpg' %}" alt=""></div></div>
-                                        <div class="side_post_content">
-                                            <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                            <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <!-- Sidebar Post -->
-                            <div class="side_post">
-                                <a href="{% url 'camer-info:blog' %}">
-                                    <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                        <div class="side_post_image"><div><img src="{% static 'images/top_4.jpg' %}" alt=""></div></div>
-                                        <div class="side_post_content">
-                                            <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                            <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                        </div>
-
-                        <!-- Top Stories Slider Item -->
-                        <div class="owl-item">
-
-                            <!-- Sidebar Post -->
-                            <div class="side_post">
-                                <a href="{% url 'camer-info:blog' %}">
-                                    <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                        <div class="side_post_image"><div><img src="{% static 'images/top_4.jpg' %}" alt=""></div></div>
-                                        <div class="side_post_content">
-                                            <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                            <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                        </div>
+                                
+                            {% endfor %}
+    
+                   
+                            </div>    
+                    {% endfor %}              
 
                     </div>
                 </div>
@@ -158,116 +110,33 @@
                 <div class="sidebar_slider_container">
                     <div class="owl-carousel owl-theme sidebar_slider_events">
 
-                        <!-- Future Events Slider Item -->
+                       
+                       {% for posts in existing_posts %}
+                            <!-- Future Events Slider Item -->
                         <div class="owl-item">
-
-                            <!-- Future Events Post -->
-                            <div class="side_post">
-                                <a href="{% url 'camer-info:blog' %}">
-                                    <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                        <div class="event_date d-flex flex-column align-items-center justify-content-center">
-                                            <div class="event_day">13</div>
-                                            <div class="event_month">apr</div>
-                                        </div>
-                                        <div class="side_post_content">
-                                            <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                            <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                        </div>
+                            
+                            {% for post in posts %}
+                                <!-- Future Events Post -->
+                                <div class="side_post">
+                                        <a href="{{post.get_absolute_url_jb_app}}">
+                                            <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
+                                                <div class="event_date d-flex flex-column align-items-center justify-content-center">
+                                                        <div class="event_day">{{post.publish.day}}</div>
+                                                        <div class="event_month">{{post.publish.month | month_to_str}} </div>
+                                                    </div>
+                                                    <div class="side_post_content">
+                                                        <div class="side_post_title">{{post.title}}</div>
+                                                        <small class="post_meta">{% if post.user.get_username %}{{ post.user.get_username }}{% endif %}<span>{{ post.publish }}</span></small>
+                                                </div>
+                                            </div>
+                                        </a>
                                     </div>
-                                </a>
-                            </div>
-
-                            <!-- Future Events Post -->
-                            <div class="side_post">
-                                <a href="{% url 'camer-info:blog' %}">
-                                    <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                        <div class="event_date d-flex flex-column align-items-center justify-content-center">
-                                            <div class="event_day">27</div>
-                                            <div class="event_month">apr</div>
-                                        </div>
-                                        <div class="side_post_content">
-                                            <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                            <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
+                            {% endfor %}                                        
+    
                         </div>
+                       {% endfor %}
+                           
 
-                        <!-- Future Events Slider Item -->
-                        <div class="owl-item">
-
-                            <!-- Future Events Post -->
-                            <div class="side_post">
-                                <a href="{% url 'camer-info:blog' %}">
-                                    <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                        <div class="event_date d-flex flex-column align-items-center justify-content-center">
-                                            <div class="event_day">13</div>
-                                            <div class="event_month">apr</div>
-                                        </div>
-                                        <div class="side_post_content">
-                                            <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                            <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <!-- Future Events Post -->
-                            <div class="side_post">
-                                <a href="{% url 'camer-info:blog' %}">
-                                    <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                        <div class="event_date d-flex flex-column align-items-center justify-content-center">
-                                            <div class="event_day">27</div>
-                                            <div class="event_month">apr</div>
-                                        </div>
-                                        <div class="side_post_content">
-                                            <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                            <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-
-                        </div>
-
-                        <!-- Future Events Slider Item -->
-                        <div class="owl-item">
-
-                            <!-- Future Events Post -->
-                            <div class="side_post">
-                                <a href="{% url 'camer-info:blog' %}">
-                                    <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                        <div class="event_date d-flex flex-column align-items-center justify-content-center">
-                                            <div class="event_day">02</div>
-                                            <div class="event_month">may</div>
-                                        </div>
-                                        <div class="side_post_content">
-                                            <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                            <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <!-- Future Events Post -->
-                            <div class="side_post">
-                                <a href="{% url 'camer-info:blog' %}">
-                                    <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
-                                        <div class="event_date d-flex flex-column align-items-center justify-content-center">
-                                            <div class="event_day">09</div>
-                                            <div class="event_month">may</div>
-                                        </div>
-                                        <div class="side_post_content">
-                                            <div class="side_post_title">How Did van Gogh’s Turbulent Mind</div>
-                                            <small class="post_meta">Katy Liu<span>Sep 29</span></small>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

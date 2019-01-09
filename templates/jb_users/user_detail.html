@@ -1,7 +1,10 @@
 {% extends "base_users_child.html" %}
 {% load static i18n %}
 {% load thumbnail %}
- 
+{% load get_number_of_articles %}
+{% load get_number_of_comments %}
+{% load get_number_of_replies %}
+
 {% block title %}{{ object.username }}{% endblock %}
 
 {% block head %}
@@ -10,9 +13,9 @@
 
 {% block content %}
   <div class="container">
-
+ 
     {% thumbnail object.picture "x250" as im %}
-      <img src="{{ im.url }}" alt="Picture Profile" id="pic" class="img-responsive">
+      <img src="{{ im.url }}" alt="Picture Profile" id="pic" class="img-responsive rounded" style="height: 250px;width: 250px;" >
     {% empty %}
       <img class="pull-right" src="{% static 'img/user.png' %}" height="250px" alt="No Profile Picture" />
     {% endthumbnail %}
@@ -38,7 +41,7 @@
         </p>
     </div>
     <div id="objective"><p>{{ object.bio }}</p></div>
-    <div class="clear"></div>
+    <div class="clear"></div> 
     {% if object.personal_url %}
       <a href="{{ object.personal_url }}" style="font-size: 2em" title="{% trans 'RSS Channel' %}"><i class="fa fa-rss"></i>  </a>
     {% endif %}
@@ -49,17 +52,17 @@
     <div class="row tile_count">
       <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
         <span class="count_top"><i class="glyphicon glyphicon-pencil"></i> {% trans 'Articles' %}</span>
-        <div class="count">0</div>
+        <div class="count">{{request.user.username | get_number_of_articles}}</div>
       </div>
       <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
         <span class="count_top"><i class="glyphicon glyphicon-comment"></i> {% trans 'Comments' %}</span>
-        <div class="count">0</div>
+        <div class="count">{{request.user.username | get_number_of_comments}}</div>
       </div>
       <div class="col-md-2 col-sm-3 col-xs-4 tile_stats_count">
         <span class="count_top"><i class="glyphicon glyphicon-fire"></i> {% trans 'Replies' %}</span>
-        <div class="count">0</div>
+        <div class="count">{{request.user.username | get_number_of_replies}}</div>
       </div>
     </div>
     <!-- /data tiles -->
-  {% endif %}
+  {% endif %} 
 {% endblock content %}

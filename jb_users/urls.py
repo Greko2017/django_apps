@@ -5,7 +5,7 @@ from jb_users import views
 
 app_name = 'users'
 urlpatterns = [
-    url(
+    url( 
         regex=r'^$',
         view=views.UserListView.as_view(),
         name='list'

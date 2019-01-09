@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
 
-class User(AbstractUser):
+class User(AbstractUser): 
     # First Name and Last Name do not cover name patterns around the globe.
     name = models.CharField(_("User's name"), blank=True, max_length=255)
     picture = models.ImageField(
@@ -22,6 +22,9 @@ class User(AbstractUser):
         return self.username
 
     def get_absolute_url(self):
+        return reverse('users:detail', kwargs={'username': self.username})
+
+    def personal_url(self):
         return reverse('users:detail', kwargs={'username': self.username})
 
     def get_profile_name(self):

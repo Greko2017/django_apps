@@ -16,7 +16,7 @@ def comment_delete(request, id):
     try:
         obj = Comment.objects.get(id=id)
     except:
-        raise Http404
+        raise Http404("No comments with the specify id. please contact the admin.")
 
     if obj.user != request.user:
         #messages.success(request, "You do not have permission to view this.")
@@ -41,7 +41,7 @@ def comment_thread(request, id):
     try:
         obj = Comment.objects.get(id=id)
     except:
-        raise Http404
+        raise Http404("Sorry we could not access the requested thread, please contact the admin")
 
     if not obj.is_parent:
         obj = obj.parent

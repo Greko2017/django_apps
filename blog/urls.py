@@ -1,31 +1,34 @@
 import allauth
 from django.conf import settings
-from django.conf.urls import include, url
+from django.conf.urls import include, url  
 from django.conf.urls.static import static
 from django.contrib import admin
-
-from accounts.views import (login_view, register_view, logout_view, user_profile_view)
+from django.views import defaults as default_views 
+import re 
+# from accounts.views import (login_view, register_view, logout_view, user_profile_view)
  
-urlpatterns = [
-    
+urlpatterns = [  
+
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^accounts/profile/', user_profile_view, name="user_profile"),
+    # url(r'^accounts/profile/', user_profile_view, name="user_profile"),
     url(r'^comments/', include("comments.urls", namespace='comments')), 
     url(r'^users/', include('jb_users.urls', namespace='users')),
-    url(r'^register/', register_view, name='register'),
-    url(r'^login/', login_view, name='login'),
-    url(r'^logout/', logout_view, name='logout'),
+    # url(r'^register/', register_view, name='register'),
+    # url(r'^login/', login_view, name='login'),
+    # url(r'^logout/', logout_view, name='logout'),
     url(r'^', include("jb_app.urls", namespace='camer-info')),    
     url(r'old-home^', include("posts.urls", namespace='posts')),
     #url(r'^posts/$', "<appname>.views.<function_name>"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# handler400 = 'jb_app.views.bad_request'
-# handler403 = 'jb_app.views.permission_denied'
-# handler404 = 'jb_app.views.page_not_found'
-# handler500 = 'jb_app.views.server_error'
+IGNORABLE_404_URLS = [
+    re.compile(r'^/apple-touch-icon.*\.png$'),
+    re.compile(r'^/favicon\.ico$'),
+    re.compile(r'^/robots\.txt$'),
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+else:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

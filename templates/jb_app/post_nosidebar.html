@@ -33,7 +33,7 @@
 			color: #212529 !important;
 			text-align: inherit;
 			white-space: nowrap;
-			background-color: transparent;
+			background-color: transparent; 
 			border: 0;
 		}
 		</style>
@@ -51,7 +51,7 @@
 	
 	<!-- Page Content -->
 
-	<div class="page_content">
+	<div class="page_content" style="background-color: lightgrey;">
 		<div class="container">
 			<div class="row">
 
@@ -64,7 +64,7 @@
 
 						<div class="post_body">
 							<figure>
-								<img src="{{ comment.content_object.image.url }}" alt="" class="img-rounded">
+								<img src="{{ comment.content_object.image.url }}" alt="" class="img-responsive rounded" style="width:800px;height:300px;">
 								<figcaption>{{comment.content_object.title}}</figcaption>
 							</figure>
 							<p class="post_p">{{comment.content_object.content}}</p>

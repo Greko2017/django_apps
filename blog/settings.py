@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
-import os
-import django_heroku
+import os 
+import django_heroku  
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -74,7 +74,8 @@ INSTALLED_APPS = [
     # local apps
     'comments',
     'posts',
-    'accounts',
+    'category',
+    #'accounts',
     # 'jb_users',
 ]
 TAGGIT_CASE_INSENSITIVE = True
@@ -82,7 +83,7 @@ TAGGIT_CASE_INSENSITIVE = True
 AUTH_USER_MODEL = "jb_users.User"
 
 
-CSRF_FAILURE_VIEW = "jb_app.views.csrf_403"
+# CSRF_FAILURE_VIEW = "jb_app.views.csrf_403"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
@@ -98,6 +99,7 @@ MIDDLEWARE_CLASSES = [
 ]
 
 MIDDLEWARE = [
+    # 'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.security.SecurityMiddleware',
 
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -126,7 +128,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
-ACCOUNT_EMAIL_SUBJECT_PREFIX="[Camer Info+]"
+ACCOUNT_EMAIL_SUBJECT_PREFIX="Camer Info+"
 
 ACCOUNT_USERNAME_BLACKLIST=[]
 
@@ -212,11 +214,25 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 MEDIA_URL = "/media/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')#'C:\\Users\\junior\\Desktop\\JB_WORK_DEV\\advancing-blog\\src\\media'#
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+if DEBUG:
+    CSRF_COOKIE_SECURE = False
+    SECURE_HSTS_SECONDS = None
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+    HOST_SCHEMZ = "http://"
+    X_FRAME_OPTIONS= 'DENY'
+    SESSION_COOKIE_SECURE = False
+    # SECURE_CONTENT_TYPE_NOSNIFF = False
+    SECURE_SSL_REDIRECT = False
+    SECURE_BROWSER_XSS_FILTER = False
+    CORS_REPLACE_HTTPS_REFERER = False
+    SECURE_PROXY_SSL_REDIRECT = None
+    SECURE_FRAME_DENY = False

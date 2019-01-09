@@ -13,3 +13,8 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm):
         model = CustomUser
         fields = ('username', 'email')
+
+class ContactForm(forms.Form):
+	full_name = forms.CharField(required=False, label=False)
+	email = forms.EmailField(label=False)
+	message = forms.CharField(widget=forms.Textarea(attrs={'cols': 15, 'rows': 5}),label=False)

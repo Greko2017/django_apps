@@ -1,0 +1,146 @@
+{% load staticfiles %}
+<!-- {% load get_firsts_three_categories %}
+{% load get_existing_posts %} -->
+<!-- {% load month_to_str %} -->
+
+<!-- {% get_existing_posts as existing_posts %}
+{% get_firsts_three_categories as firsts_three_categories %} -->
+<!-- Sidebar -->
+
+<div class="col-lg-3">
+    <div class="sidebar">
+        <div class="sidebar_background"></div>
+
+        <!-- Top Stories -->
+
+        <div class="sidebar_section">
+            <div class="sidebar_title_container">
+                <div class="sidebar_title">Top Stories</div>
+                <div class="sidebar_slider_nav">
+                    <div class="custom_nav_container sidebar_slider_nav_container">
+                        <div class="custom_prev custom_prev_top">
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                 width="7px" height="12px" viewBox="0 0 7 12" enable-background="new 0 0 7 12" xml:space="preserve">
+                                <polyline fill="#bebebe" points="0,5.61 5.609,0 7,0 7,1.438 2.438,6 7,10.563 7,12 5.609,12 -0.002,6.39 "/>
+                            </svg>
+                        </div>
+                        <ul id="custom_dots" class="custom_dots custom_dots_top">
+                            <li class="custom_dot custom_dot_top active"><span></span></li>
+                            <li class="custom_dot custom_dot_top"><span></span></li>
+                            <li class="custom_dot custom_dot_top"><span></span></li>
+                        </ul>
+                        <div class="custom_next custom_next_top">
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                 width="7px" height="12px" viewBox="0 0 7 12" enable-background="new 0 0 7 12" xml:space="preserve">
+                                <polyline fill="#bebebe" points="6.998,6.39 1.389,12 -0.002,12 -0.002,10.562 4.561,6 -0.002,1.438 -0.002,0 1.389,0 7,5.61 "/>
+                            </svg>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar_section_content">
+
+                <!-- Top Stories Slider -->
+                <div class="sidebar_slider_container">
+                    <div class="owl-carousel owl-theme sidebar_slider_top">
+
+                    
+                    {% for category in firsts_three_categories %}
+                        
+                        <!-- Top Stories Slider Item -->
+                        <div class="owl-item">
+                            
+                            {% for post in category.posts.get_first_three %}  
+                            <!-- Sidebar Post -->
+                            <div class="side_post">
+                                <a href="{{post.get_absolute_url_jb_app}}"> <!-- {% url 'camer-info:blog' %}"> -->
+                                    <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
+                                        <div class="side_post_image"><div><img src="{{ post.image.url }}" alt=""></div></div>
+                                        <div class="side_post_content">
+                                            <div class="side_post_title">{{post.title}}</div> 
+                                            <small class="post_meta">{% if post.user.get_username %}{{ post.user.get_username }}{% endif %}<span>{{ post.publish }}</span></small>
+                                            
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                                
+                            {% endfor %}                                 
+           
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- Future Events -->
+
+        <div class="sidebar_section future_events">
+            <div class="sidebar_title_container">
+                <div class="sidebar_title">Future Events</div>
+                <div class="sidebar_slider_nav">
+                    <div class="custom_nav_container sidebar_slider_nav_container">
+                        <div class="custom_prev custom_prev_events">
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                 width="7px" height="12px" viewBox="0 0 7 12" enable-background="new 0 0 7 12" xml:space="preserve">
+                                <polyline fill="#bebebe" points="0,5.61 5.609,0 7,0 7,1.438 2.438,6 7,10.563 7,12 5.609,12 -0.002,6.39 "/>
+                            </svg>
+                        </div>
+                        <ul id="custom_dots" class="custom_dots custom_dots_events">
+                            <li class="custom_dot custom_dot_events active"><span></span></li>
+                            <li class="custom_dot custom_dot_events"><span></span></li>
+                            <li class="custom_dot custom_dot_events"><span></span></li>
+                        </ul>
+                        <div class="custom_next custom_next_events">
+                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                 width="7px" height="12px" viewBox="0 0 7 12" enable-background="new 0 0 7 12" xml:space="preserve">
+                                <polyline fill="#bebebe" points="6.998,6.39 1.389,12 -0.002,12 -0.002,10.562 4.561,6 -0.002,1.438 -0.002,0 1.389,0 7,5.61 "/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar_section_content">
+
+                <!-- Sidebar Slider -->
+                <div class="sidebar_slider_container">
+                    <div class="owl-carousel owl-theme sidebar_slider_events">
+
+                    
+                    {% for posts in existing_posts %}
+
+                        <!-- Future Events Slider Item -->
+                        <div class="owl-item">
+                            
+                            {% for post in posts %}
+                                {% if post.count >= 2 %}
+                                  <!-- Future Events Post -->
+                                <div class="side_post">
+                                    <a href="{% url 'camer-info:blog' %}">
+                                        <div class="d-flex flex-row align-items-xl-center align-items-start justify-content-start">
+                                            <div class="event_date d-flex flex-column align-items-center justify-content-center">
+                                                <div class="event_day">{{post.publish.day}}</div>
+                                                <div class="event_month">{{post.publish.month | month_to_str}} </div>
+                                            </div>
+                                            <div class="side_post_content">
+                                                <div class="side_post_title">{{post.title}}</div>
+                                                <small class="post_meta">{% if post.user.get_username %}{{ post.user.get_username }}{% endif %}<span>{{ post.publish }}</span></small>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+    
+                               
+                            
+                        </div>
+
+                    {% endfor %}                                      
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>                  

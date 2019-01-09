@@ -1,0 +1,48 @@
+{% load static i18n %}{% load get_firsts_three_categories %}{% get_firsts_three_categories as firsts_three_categories  %}<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}"> 
+    <meta name="description" content="An enterprise Blog">
+    <meta name="author" content="Gregory | Sebastian Reyes">
+    <!-- HTML5 shim, for IE5-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+    <title>Camer Info+</title> 
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Custom fonts for this template -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+    <link href="{% static 'css/creative.css' %}" rel="stylesheet">
+  </head>
+  <body id="page-top">
+    
+    <header class="masthead text-center text-white d-flex">
+      <div class="container my-auto">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            <h1 class="text-faded"><strong>{% trans 'Welcome to Camer Info+' %}</strong></h1>
+              <small style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif">
+                {% for category in firsts_three_categories %}
+                  <a href="{{category.get_absolute_url}}">{{category.title}}</a> |   
+                {% endfor %}              
+              </small>
+            </h5> 
+            <hr>
+          </div>
+          <div class="col-lg-4 mx-auto">
+            <p class="text-faded mb-5">{% trans 'Your enterprise oriented blog.' %}</p>
+            <a class="btn btn-primary btn-xl" href="{% url 'account_login' %}">{% trans 'Start Session' %}</a> <small><a href="{% url 'camer-info:category:list' %}">{% trans 'go to the home page' %}</a></small>
+          </div>
+        </div>
+      </div>
+    </header>
+  </body>
+</html>

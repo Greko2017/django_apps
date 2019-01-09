@@ -35,10 +35,13 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                   <li class="nav-item"><a class="nav-link" href="{% url 'camer-info:home' %}">{% trans 'Home' %}</a></li>
+                  <li class="nav-item"><a class="nav-link" href="{% url 'camer-info:category:list' %}">{% trans 'Category' %}</a></li>
                   <li class="nav-item"><a class="nav-link" href="{% url 'camer-info:blog' %}">{% trans 'Blog' %}</a></li>
                   <li class="nav-item"><a class="nav-link" href="{% url 'camer-info:about' %}">{% trans 'About Us' %}</a></li>
                   <li class="nav-item"><a class="nav-link" href="{% url 'camer-info:contact' %}">{% trans 'Contact' %}</a></li>
-                  <li class="nav-item active"><a class="nav-link" href="{% url 'users:detail' request.user.username %}">{% trans 'Profile' %}</a></li>
+                  {% if request.user.username %}
+                    <li class="nav-item active"><a class="nav-link" href="{% url 'users:detail' request.user.username %}">{% trans 'Profile' %}</a></li>                    
+                  {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                   {% if not hide_search %}

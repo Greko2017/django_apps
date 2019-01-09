@@ -6,7 +6,7 @@ from django.contrib.auth import (
     get_user_model,
     login,
     logout,
-
+ 
     )
 
 try:
@@ -26,14 +26,16 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render, get_object_or_404, redirect
-from django.utils import timezone
+from django.utils import timezone 
 
 from comments.forms import CommentForm
 from comments.models import Comment
 from posts.models import Post
-from accounts.models import SignUp
-from accounts.forms import UserLoginForm, UserRegisterForm, ContactForm, SignUpForm
+from django.urls import reverse
 
+# from accounts.models import SignUp
+# from accounts.forms import UserLoginForm, UserRegisterForm, ContactForm, SignUpForm
+from jb_users.forms import ContactForm
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
@@ -43,7 +45,7 @@ def home_page(request):
 		"title": "Camer-Info+",
 		'nbar': 'home'
 	}
-	return render(request, "jb_app/index.html", context)
+	return render(request, "jb_app/home.html", context)
 
 def contact_page(request):
 	title = 'Contact Us'
@@ -125,36 +127,36 @@ def base_page(request):
 	}
 	return render(request, "jb_app/base.html", context)
 
-def login_form_page(request):
-	print(request.user.is_authenticated())
-	next = request.GET.get('next')
-	title = "Login"
-	form = UserLoginForm(request.POST or None)
-	if form.is_valid():
-		username = form.cleaned_data.get("username")
-		password = form.cleaned_data.get('password')
-		user = authenticate(username=username, password=password)
-		login(request, user)
-		if next:
-			return redirect(next)
-		return redirect("camer-info:home")
-	return render(request, "jb_app/login_form.html", {"form":form, "title": title})
+# def login_form_page(request):
+# 	print(request.user.is_authenticated())
+# 	next = request.GET.get('next')
+# 	title = "Login"
+# 	form = UserLoginForm(request.POST or None)
+# 	if form.is_valid():
+# 		username = form.cleaned_data.get("username")
+# 		password = form.cleaned_data.get('password')
+# 		user = authenticate(username=username, password=password)
+# 		login(request, user)
+# 		if next:
+# 			return redirect(next)
+# 		return redirect("camer-info:home")
+# 	return render(request, "jb_app/login_form.html", {"form":form, "title": title})
 
-def register_form_page(request):
-	next = request.GET.get('next')
-	title = "Register"
-	form = UserRegisterForm(request.POST or None)
-	if form.is_valid():
-		user = form.save(commit=False)
-		password = form.cleaned_data.get('password')
-		user.set_password(password)
-		user.save()
-		new_user = authenticate(username=user.username, password=password)
-		login(request, new_user)
-		if next:
-			return redirect(next)
-		return redirect('/')
-	return render(request, 'jb_app/register_form.html', {"form":form, "title":title, 'nbar':'register'})
+# def register_form_page(request):
+# 	next = request.GET.get('next')
+# 	title = "Register"
+# 	form = UserRegisterForm(request.POST or None)
+# 	if form.is_valid():
+# 		user = form.save(commit=False)
+# 		password = form.cleaned_data.get('password')
+# 		user.set_password(password)
+# 		user.save()
+# 		new_user = authenticate(username=user.username, password=password)
+# 		login(request, new_user)
+# 		if next:
+# 			return redirect(next)
+# 		return redirect('/')
+# 	return render(request, 'jb_app/register_form.html', {"form":form, "title":title, 'nbar':'register'})
 
 # def blog_form_page(request):
 # 	title = 'Here is a blog_form'
@@ -171,42 +173,46 @@ def about_form_page(request):
 	}
 	return render(request, "jb_app/regular.html", context)
 
-def logout_form_page(request):
-    logout(request)
-    return redirect("camer-info:home")
+# def logout_form_page(request):
+#     logout(request)
+#     return redirect("camer-info:home")
+
+def user_profile_view(request):
+    _user = request.user
+    return HttpResponseRedirect(reverse('users:detail', args=(_user.username,)))
 
 
-def handler400(request, exception):
-    context = RequestContext(request)
-    err_code = 400
-    response = render_to_response('400.html', {"code":err_code}, context)
-    response.status_code = 400
-    return response
+# def handler400(request, exception):
+#     context = RequestContext(request) 
+#     err_code = 400
+#     response = render_to_response('400.html', {"code":err_code}, context)
+#     response.status_code = 400
+#     return response
 
-def handler403(request, exception):
-    context = RequestContext(request)
-    err_code = 403
-    response = render_to_response('403.html', {"code":err_code}, context)
-    response.status_code = 403
-    return response
+# def handler403(request, exception):
+#     context = RequestContext(request)
+#     err_code = 403
+#     response = render_to_response('403.html', {"code":err_code}, context)
+#     response.status_code = 403
+#     return response
 
-def handler404(request, exception):
-    context = RequestContext(request)
-    err_code = 404
-    response = render_to_response('404.html', {"code":err_code}, context)
-    response.status_code = 404
-    return response
+# def handler404(request, exception):
+#     context = RequestContext(request)
+#     err_code = 404
+#     response =  render(request,'404.html', {"code":err_code}, context)
+#     response.status_code = 404
+#     return response
 
-def handler500(request, exception):
-    context = RequestContext(request)
-    err_code = 500
-    response = render_to_response('500.html', {"code":err_code}, context)
-    response.status_code = 500
-    return response
+# def handler500(request):
+#     context = RequestContext(request)
+#     err_code = 500
+#     response = render(request,'500.html', {"code":err_code}, context)
+#     response.status_code = 500
+#     return response
 
-def csrf_403(request, exception):
-	context = RequestContext(request)
-	err_code = '403_csrf'
-	response = render_to_response('403_csrf.html', {"code":err_code}, context)
-	response.status_code = 403
-	return response
+# def csrf_403(request, exception):
+# 	context = RequestContext(request)
+# 	err_code = '403_csrf'
+# 	response = render_to_response('403_csrf.html', {"code":err_code}, context)
+# 	response.status_code = 403
+# 	return response

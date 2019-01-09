@@ -2,8 +2,16 @@
 
 
 {% block content %}
+  
+  {% if exception and exception != "Resolver404" %}
+  <div class="page-header">
+    <h1>Page not accessible</h1>
+  </div> 
+    <p style="margin-top: 1.2em;">Details message: <h6 style="color:black;">{{exception}}</h6></p>
+  {% else %}
   <div class="page-header">
     <h1>Page not found</h1>
   </div>
-  <p style="margin-top: 1.2em">We could not find the page you are looking for :(</p>
+    <p style="margin-top: 1.2em">We could not find the page you are looking for :(</p>
+  {% endif %}
 {% endblock content %}

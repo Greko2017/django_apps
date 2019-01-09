@@ -17,7 +17,7 @@
       {% if user.name %}<p class="lead">{{ user.name }}</p>{% endif %}
       {% if user.picture %}
       {% thumbnail user.picture "x250" as im %}
-          <img src="{{ im.url }}" alt="Picture Profile" id="pic" class="img-responsive">
+          <img src="{{ im.url }}" alt="Picture Profile" id="pic" class="img-responsive rounded" style="height: 220px;width: 220px;">
           {% endthumbnail %}
       {% else %}
         <img src="{% static 'img/user.png' %}" alt="No Profile Picture" />

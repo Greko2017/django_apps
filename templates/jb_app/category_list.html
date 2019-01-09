@@ -1,0 +1,86 @@
+{% extends "jb_app/base.html" %}
+{% load static i18n thumbnail %}
+{% load staticfiles %}
+<title>{% block header-stype %}{% trans 'Categories' %} | {{block.super}} {% endblock header-stype %}</title>
+{% block header-style %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles/category.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/category_responsive.css' %}">
+<link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+{% endblock header-style %}
+
+	{% block home %}		
+	<div class="home" style="height: 100px;">
+		<div class="home_background parallax-window" data-parallax="scroll" data-image-src="{% static 'images/category.jpg' %}" data-speed="0.8"></div>
+	</div>
+	{% endblock home %}
+	
+						{% block content %} 
+					<br>
+						<div class="col-sm-6 col-sm-offset-3">
+								<form method='GET' action='' class="row">
+									<div class="col-sm-4">
+										<h4>{% trans 'Search :' %}</h4>
+									</div>
+									<div class="col-sm-8 col-sm-offset-3 ml-auto">
+										<input type="search" name='q' class="header_search_input" style="background-color:grey;" required="required" placeholder="Type to Search..." value='{{ request.GET.q }}'>
+										<img class="header_search_icon" src="{% static 'images/search.png' %}" alt="">
+									</div>
+								</form>
+							</div>
+							<hr> 
+
+						<h1 class="my-4">{% trans 'Latest Categories' %}
+								<small>{% trans 'List of different categories' %}</small>
+							</h1>
+						
+							  <!-- Project One -->
+							  {% for obj in object_list  %}
+							  <!-- Project One -->
+							  <div class="row">
+								<div class="col-md-7">
+								  <a href="{{ obj.get_absolute_url }}">
+									<img class="img-fluid rounded mb-3 mb-md-0" src="{{ obj.image.url }}" alt="Category {{obj.title}}" style="height: 250px;width: 700px;"> 
+								  </a>
+								</div>
+								<div class="col-md-5">
+								  <h3>{{obj.title}} <small> {% trans 'Articles' %} ( {{ obj.posts.count }} )</small></h3>
+								  <p>{{ obj.description }}</p>
+								  <a class="btn btn-primary" href="{{ obj.get_absolute_url }}">{% trans 'View Category' %}</a>
+								</div>
+							  </div>
+							  <!-- /.row -->
+						
+							  <hr> 
+						
+							  {% endfor %}
+						
+							  <!-- Pagination -->
+							  <ul class="pagination justify-content-center">
+									{% if object_list.has_previous %}
+										<li class="page-item">
+										<a class="page-link" href="?{{ page_request_var }}={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" aria-label="Previous">
+											<span aria-hidden="true">&laquo;</span>
+											<span class="sr-only">{% trans 'Previous' %}</span>
+										</a>
+									</li>
+									{% endif %}
+									<li class="page-item">
+									  <a class="page-link" href="#">Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.</a>
+									</li>
+									{% if object_list.has_next %}
+									<li class="page-item">
+									  <a class="page-link" href="?{{ page_request_var }}={{ object_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" aria-label="Next">
+										<span aria-hidden="true">&raquo;</span>
+										<span class="sr-only">{% trans 'Next' %}</span>
+									  </a>
+									</li>
+									{% endif %}
+								</ul>
+					{% endblock content %}
+		{% block footer%}
+			{{block.super}}
+		{% endblock footer %}
+{% block footer-script %}
+<script src="{% static 'plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static 'js/category.js' %}"></script>
+{% endblock footer-script %}

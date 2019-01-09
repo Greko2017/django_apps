@@ -26,7 +26,7 @@ from .models import Post
 
 def post_create(request):
 	if not request.user.is_staff or not request.user.is_superuser:
-		raise Http404
+		raise Http404("You are not allowed to create this article")
 		
 	form = PostForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
@@ -131,7 +131,7 @@ def post_list(request):
 
 def post_update(request, slug=None):
 	if not request.user.is_staff or not request.user.is_superuser:
-		raise Http404
+		raise Http404("You are not allowed to update this article")
 	instance = get_object_or_404(Post, slug=slug)
 	form = PostForm(request.POST or None, request.FILES or None, instance=instance)
 	if form.is_valid():
@@ -151,7 +151,7 @@ def post_update(request, slug=None):
 
 def post_delete(request, slug=None):
 	if not request.user.is_staff or not request.user.is_superuser:
-		raise Http404
+		raise Http404("You are not allowed to delete this article")
 	instance = get_object_or_404(Post, slug=slug)
 	instance.delete()
 	messages.success(request, "Successfully deleted")
