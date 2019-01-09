@@ -2,14 +2,14 @@ import allauth
 from django.conf import settings
 from django.conf.urls import include, url  
 from django.conf.urls.static import static
-from django.contrib import admin
+# from django.contrib import admin
 from django.views import defaults as default_views 
 import re 
 # from accounts.views import (login_view, register_view, logout_view, user_profile_view)
  
 urlpatterns = [  
 
-    url(r'^admin/', admin.site.urls),
+    # url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('allauth.urls')),
     # url(r'^accounts/profile/', user_profile_view, name="user_profile"),
     url(r'^comments/', include("comments.urls", namespace='comments')), 

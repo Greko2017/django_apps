@@ -48,7 +48,7 @@ SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -80,7 +80,7 @@ INSTALLED_APPS = [
 ]
 TAGGIT_CASE_INSENSITIVE = True
 
-# AUTH_USER_MODEL = "jb_users.User"
+AUTH_USER_MODEL = "jb_users.User"
 
 
 # CSRF_FAILURE_VIEW = "jb_app.views.csrf_403"
