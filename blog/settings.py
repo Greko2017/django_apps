@@ -48,6 +48,7 @@ SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = [
+    'jb_users.apps.JbUsersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,7 +56,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'jb_users.apps.JbUsersConfig',
 
     # third party
     'crispy_forms',
@@ -73,8 +73,8 @@ INSTALLED_APPS = [
 
     # local apps
     'comments',
-    'category',
     'posts',
+    'category',
     #'accounts',
     # 'jb_users',
 ]

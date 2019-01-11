@@ -38,7 +38,7 @@ urlpatterns = [
 	# url(r'^register$', register_form_page, name='register'),
 	url(r'^comments/', include("jb_app_comments.urls", namespace='comments')),
 	url(r'^posts/', include("jb_app_posts.urls", namespace='posts')),
-
+	
 	# user registration using email
 	# url(r'^signup$', signup, name='signup'),
 	# url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate, name='activate'),
