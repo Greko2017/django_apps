@@ -232,9 +232,6 @@ MEDIA_URL = "/media/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')#'C:\\Users\\junior\\Desktop\\JB_WORK_DEV\\advancing-blog\\src\\media'#
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
-
 
 CORS_REPLACE_HTTPS_REFERER = True
 HOST_SCHEME = "https://"
@@ -250,3 +247,6 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 # # SECURE_CONTENT_TYPE_NOSNIFF = False
 # SECURE_BROWSER_XSS_FILTER = False
 # SECURE_PROXY_SSL_REDIRECT = None
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
